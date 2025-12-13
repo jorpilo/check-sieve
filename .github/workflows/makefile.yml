@@ -15,14 +15,16 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Install dependencies
-      run: sudo apt install -y make gcc g++ bison flex python3 libpython3-dev emscripten
-      
+      uses: awalsh128/cache-apt-pkgs-action@latest
+      with:
+        packages: make gcc g++ bison flex python3 libpython3-dev emscripten
+        version: 1.0
     - name: Build
       run: make install
       env:
         INSTALL_DIR: "${{github.workspace}}/out"
-
     - uses: actions/upload-artifact@v4
       with:
-        name: check-sieve
+        name: build-output
         path: ${{github.workspace}}/out
+
