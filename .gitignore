@@ -16,3 +16,7 @@ __pycache__
 # Snaps
 *.snap
 *.snap.bak
+
+# Outputs
+out
+*.tgz
