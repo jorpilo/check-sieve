@@ -32,17 +32,19 @@ jobs:
         path: ${{github.workspace}}/check-shieve.tgz 
 
   release:
-      permissions:
-        contents: write
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v4
+    needs: build
+    if: github.ref_type == 'tag'
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
-        - uses: actions/download-artifact@v5
-          with:
-            name: build-output
-        - name: Release
-          uses: softprops/action-gh-release@v2
-          if: github.ref_type == 'tag'
-          with:
-            files: check-shieve.tgz 
+      - uses: actions/download-artifact@v5
+        with:
+          name: build-output
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        
+        with:
+          files: check-shieve.tgz
