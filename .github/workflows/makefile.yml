@@ -20,7 +20,9 @@ jobs:
         packages: make gcc g++ bison flex python3 libpython3-dev emscripten
         version: 1.0
     - name: Build
-      run: INSTALL_DIR=${{github.workspace}}/out make install
+      run: make install
+      env:
+        INSTALL_PREFIX: ${{github.workspace}}/out 
     - uses: actions/upload-artifact@v4
       with:
         name: build-output
